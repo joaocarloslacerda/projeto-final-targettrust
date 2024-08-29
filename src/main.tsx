@@ -4,10 +4,11 @@ import { PrimeReactProvider } from 'primereact/api'
 import 'primeicons/primeicons.css'
 import App from './App.tsx'
 
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <PrimeReactProvider>
       <App />
     </PrimeReactProvider>
   </StrictMode>,
-)
+);
