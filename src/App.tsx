@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <h1 className='lg:bg-[#0096D6] md:bg-orange-400 sm:bg-green-400 bg-slate-400 px-4 py-8 border-4 border-solid rounded border-black text-white'>
+        <h1 className='lg:bg-[#0096D6] md:bg-orange-400 sm:bg-green-400 bg-slate-400 px-4 py-8 text-white'>
           <Link className="p-2 hover:underline" to="/">Home</Link>
           <Link className="p-2 hover:underline" to="/departamentos">Departamentos</Link>
         </h1>
