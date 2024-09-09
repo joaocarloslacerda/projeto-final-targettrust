@@ -35,7 +35,7 @@ export const ListagemDepartamentos = () => {
   return (
     <>
       <div className='flex col-span-12 justify-between'>
-        <h1 className='pt-2'>Listagem de Departamentos</h1>
+      <h1 className='text-2xl font-bold'>Listagem de Departamentos</h1>
 
         <Button icon='pi pi-plus' severity='success' label='Incluir' onClick={handleCkick}/>
       </div>

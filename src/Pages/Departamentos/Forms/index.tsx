@@ -3,7 +3,8 @@ import { Button } from 'primereact/button';
 import { FloatLabel } from 'primereact/floatlabel';
 import { Message } from 'primereact/message';
 import { useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import insereDepartamento from '../../../Services/Departamentos/insereDepartamento';
 
 export const FormDepartamentos = () => {
 
@@ -13,6 +14,7 @@ export const FormDepartamentos = () => {
   const [inputSigla, setSigla] = useState('');
   const [temErroNome, setTemNome] = useState(false);
   const [temErroSigla, setTemSigla] = useState(false);
+  const [erroAPI, setErroAPI] = useState('');
 
 
   const validaFormulario = () => {
@@ -76,12 +78,27 @@ export const FormDepartamentos = () => {
                 icon='pi pi-save' 
                 severity='success' 
                 label='Salvar' 
-                onClick={() => {
-                  if(validaFormulario()){
-
+                onClick={ async () => {
+                  if (validaFormulario()) {
+                    try{
+                      await insereDepartamento(
+                        {
+                          nome: inputNome,
+                          sigla: inputSigla
+                        }
+                      )
+                      navigate('/departamentos');
+                    }catch(e: any){
+                      if(e.responde?.data?.message){
+                        setErroAPI(e.responde?.data?.message);
+                      }
+                    }
                   }
                 }}/>
         <Button className='row-start-2 col-span-4' icon='pi pi-times' severity='danger' label='Cancelar'/>
+      </div>
+      <div className='col-span-12'>
+        <Message text={erroAPI} className='w-full' severity='error' hidden={erroAPI !== ''}/>
       </div>
     </>
   )
