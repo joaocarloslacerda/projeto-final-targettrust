@@ -15,13 +15,19 @@ export const FormDepartamentos = () => {
   const [temErroSigla, setTemSigla] = useState(false);
 
 
-  const handleCkick = () => {
+  const validaFormulario = () => {
+    setTemNome(false);
+    setTemSigla(false);
+
     if(!inputNome){
       setTemNome(true);
+      return false;
     }
     if(!inputSigla){
       setTemSigla(true);
+      return false;
     }
+    return true;
   }
 
   return (
@@ -48,20 +54,33 @@ export const FormDepartamentos = () => {
             <InputText className='w-full' id='name' value={inputNome} onChange={(e) => setNome(e.target.value)}/>
             <label htmlFor="name">Nome</label>
           </FloatLabel>
-          <small className='text-red-600' hidden={!temErroNome}>
-            Nome inválido
-          </small>
+          <div className='h-6'>
+            <small className='text-red-600' hidden={!temErroNome}>
+              Nome inválido
+            </small>
+          </div>
+
         </div>
         <div className='col-span-2'>
           <FloatLabel>
             <InputText className='w-full' id='acronym' value={inputSigla} onChange={(e) => setSigla(e.target.value)}/>
             <label htmlFor="acronym">Sigla</label>
           </FloatLabel>
-          <small className='text-red-600' hidden={!temErroSigla}>
-            Sigla inválida
-          </small>
+          <div className='h-6'>
+            <small className='text-red-600' hidden={!temErroSigla}>
+              Sigla inválida
+            </small>
+          </div>
         </div>
-        <Button className='row-start-2 col-span-4' icon='pi pi-save' severity='success' label='Salvar' onClick={handleCkick}/>
+        <Button className='row-start-2 col-span-4' 
+                icon='pi pi-save' 
+                severity='success' 
+                label='Salvar' 
+                onClick={() => {
+                  if(validaFormulario()){
+
+                  }
+                }}/>
         <Button className='row-start-2 col-span-4' icon='pi pi-times' severity='danger' label='Cancelar'/>
       </div>
     </>
