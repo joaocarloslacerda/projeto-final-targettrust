@@ -20,10 +20,19 @@ export const ListagemDepartamentos = () => {
     }
   }, [departamentos]);
 
-  const bodyAcao = (departamento) => {
+  const bodyAcao = (departamento: any) => {
     return (
       <>
-        <Button className='mr-2' icon='pi pi-pencil'/>
+        <Button 
+                className='mr-2' 
+                icon='pi pi-pencil'
+                rounded
+                severity='warning'
+                onClick={() =>{
+                  const { id_departamento } = departamento;
+                  navigate(`/departamentos/edit/${id_departamento}`);
+                }}
+        />
         <Button icon='pi pi-trash' 
                 severity='danger'
                 rounded

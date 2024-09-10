@@ -3,6 +3,7 @@ import { Home } from '../Pages/Home'
 import { ListagemDepartamentos } from '../Pages/Departamentos/Listagem'
 import { NotFound } from '../Pages/NotFound'
 import { FormDepartamentos } from '../Pages/Departamentos/Forms'
+import { Editor } from 'primereact/editor'
 
 export const AppRoutes = () => {
   return (  
@@ -10,7 +11,7 @@ export const AppRoutes = () => {
             <Route path="/" element={<Home />}/>
             <Route path="/departamentos" element={<ListagemDepartamentos/>}/>
             <Route path="/departamentos/new" element={<FormDepartamentos/>}/>
-            <Route path="/departamentos/edit/:id" element={<h1>Editar Departamento</h1>}/>
+            <Route path="/departamentos/edit/:id" element={<FormDepartamentos/> }/>
             <Route path="*" element={<NotFound />}/>
         </Routes>
   )
