@@ -4,11 +4,15 @@ import { Button } from 'primereact/button';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import listaDepartamentos from '../../../Services/Departamentos/listaDepartamentos';
+import excluiDepartamento from '../../../Services/Departamentos/excluiDepartamento';
+import { Message } from 'primereact/message';
 
 export const ListagemDepartamentos = () => {
 
   const [departamentos, setDepartamentos] = useState();
   const [loading, setLoading] = useState(false);
+  const [loadingDelete, setLoadingDelete] = useState(false);
+  const [erro, setErro] = useState('');
 
   useEffect(() => {
     if(!departamentos){
@@ -16,11 +20,28 @@ export const ListagemDepartamentos = () => {
     }
   }, [departamentos]);
 
-  const bodyAcao = () => {
+  const bodyAcao = (departamento) => {
     return (
       <>
         <Button className='mr-2' icon='pi pi-pencil'/>
-        <Button icon='pi pi-trash' severity='danger'/>
+        <Button icon='pi pi-trash' 
+                severity='danger'
+                rounded
+                loading={loadingDelete}
+                onClick={async () => {
+                  setLoadingDelete(true);
+                  try{
+                    await excluiDepartamento(departamento.id_departamento);
+                    navigate(0);
+                  }catch(e: any){
+                    if(e.responde?.data?.message){
+                      const mensagem = `[ ${departamento.nome} ] ${e.response?.data?.message}`
+                      setErro(mensagem)                    
+                    }
+                    setLoadingDelete(false);
+                  }
+                }}
+        />
       </>
     );
   }
