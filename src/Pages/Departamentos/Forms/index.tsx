@@ -5,7 +5,7 @@ import { Message } from 'primereact/message';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import insereDepartamento from '../../../Services/Departamentos/insereDepartamento';
-import { getDepartamento } from '../../../Services/Departamentos/editaDepartamento';
+import { atualizaDepartamento, getDepartamento } from '../../../Services/Departamentos/editaDepartamento';
 
 export const FormDepartamentos = () => {
 
@@ -29,7 +29,7 @@ export const FormDepartamentos = () => {
       }
     }
     buscaDados();
-  })
+  }, [])
 
 
   const validaFormulario = () => {
@@ -96,12 +96,22 @@ export const FormDepartamentos = () => {
                 onClick={ async () => {
                   if (validaFormulario()) {
                     try{
-                      await insereDepartamento(
-                        {
+                      if(id){
+                        await atualizaDepartamento({
+                          id,
                           nome: inputNome,
                           sigla: inputSigla
-                        }
-                      )
+                        })
+                      }else{
+                        await insereDepartamento(
+                          {
+                            nome: inputNome,
+                            sigla: inputSigla
+                          }
+                        )
+                      }
+
+
                       navigate('/departamentos');
                     }catch(e: any){
                       if(e.responde?.data?.message){
